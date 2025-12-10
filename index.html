@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fantasy App</title>
+</head>
+<body>
+    <h1>Fantasy App</h1>
+    <p>Enter your daily prompt:</p>
+    <input type="text" id="promptInput">
+    <button onclick="logEntry()">Log Entry</button>
+    <p>Stats:</p>
+    <ul>
+        <li>Endurance: <span id="endurance">0</span></li>
+        <li>Durability: <span id="durability">0</span></li>
+        <li>Charisma: <span id="charisma">0</span></li>
+        <li>Strength: <span id="strength">0</span></li>
+        <li>Wisdom: <span id="wisdom">0</span></li>
+        <li>Intelligence: <span id="intelligence">0</span></li>
+    </ul>
+    <p>Title: <span id="title">Peasant</span></p>
+
+    <script>
+        let stats = {
+            endurance: 0,
+            durability: 0,
+            charisma: 0,
+            strength: 0,
+            wisdom: 0,
+            intelligence: 0
+        };
+
+        function logEntry() {
+            let prompt = document.getElementById("promptInput").value.toLowerCase();
+            if (prompt.includes("endurance")) {
+                stats.endurance += 1;
+            }
+            if (prompt.includes("durability")) {
+                stats.durability += 1;
+            }
+            if (prompt.includes("charisma")) {
+                stats.charisma += 1;
+            }
+            if (prompt.includes("strength")) {
+                stats.strength += 1;
+            }
+            if (prompt.includes("wisdom")) {
+                stats.wisdom += 1;
+            }
+            if (prompt.includes("intelligence")) {
+                stats.intelligence += 1;
+            }
+
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById("endurance").innerText = stats.endurance;
+            document.getElementById("durability").innerText = stats.durability;
+            document.getElementById("charisma").innerText = stats.charisma;
+            document.getElementById("strength").innerText = stats.strength;
+            document.getElementById("wisdom").innerText = stats.wisdom;
+            document.getElementById("intelligence").innerText = stats.intelligence;
+
+            checkTitles();
+        }
+
+        function checkTitles() {
+            let totalStats = Object.values(stats).reduce((a, b) => a + b, 0);
+            let title = "Peasant";
+
+            if (totalStats >= 5) {
+                title = "Knight";
+            }
+            if (totalStats >= 10) {
+                title = "King";
+            }
+            if (totalStats >= 15) {
+                title = "Shadow God";
+            }
+            if (totalStats >= 20) {
+                title = "Trancended one";
+            }
+
+            if (totalStats >= 25) {
+                title = "one above all";
+            }
+            
+            if (totalStats >= 30) {
+                title = "unlimited";
+            }
+            
+            document.getElementById("title").innerText = title;
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem("stats")) {
+                stats = JSON.parse(localStorage.getItem("stats"));
+                updateStats();
+            }
+        };
+
+        window.onbeforeunload = function() {
+            localStorage.setItem("stats", JSON.stringify(stats));
+        };
+    </script>
+</body>
+</html>
+
+<body style="background: linear-gradient(to right, #F76E1E, #3C3295); color: white; font-family: sans-serif; padding: 2rem;">
+  
+    for endurance stat to rise include the word endurance in your promt andnrepeat for other states
